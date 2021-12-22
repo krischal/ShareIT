@@ -1,3 +1,5 @@
+#Challenge 3: Zombies
+
 #below is the function that takes zombies percentage in each city
 #as a percentage paremeter and total number of city as a totalCity
 
