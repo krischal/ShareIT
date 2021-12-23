@@ -80,6 +80,7 @@
 </template>
 
 <script>
+var dataCount =0;
     export default {
         name: 'SharedDataList',
         data() {
@@ -99,6 +100,7 @@
         },
         mounted() {
             this.loadSharedData();
+            let timer = setInterval(this.asyncData, 1500);
         },
         methods: {
 
@@ -112,6 +114,8 @@
                 axios.get('/allData')
                 .then((response) => {
                     this.shareddatas.data = response.data;
+                    dataCount = response.data.length;
+
                 })
                 .catch((error) => {
                     console.log(error.message);
@@ -171,7 +175,28 @@
                         console.log(error.message);
                         this.error = 'Post couldnot be deleted!';
                     })
+            },
+
+            asyncData(){
+                axios.get('/allData')
+                .then((response) => {
+                    let data = response.data;
+                    if (data.length > dataCount){
+                        dataCount = data.length;
+                        this.loadSharedData();
+                    }
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                    this.error = 'Unable to async data.';
+                })
+                .finally(() => {
+                    // disable loader
+                 this.shareddatas.isLoading = false;
+                })
             }
+            
+
         }
     }
 </script>
