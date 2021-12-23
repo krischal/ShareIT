@@ -17,3 +17,13 @@ Technology specifications:
     MySQL Server v8.* (MariaDB v10.*) 
     Laravel Echo Server 
     VueJS (frontend) 
+
+INstallation Guide:
+
+    Clone the project inside (xampp/htdocs).
+    Run the xamppp apache and sql server.
+    cd to the project and run composer install on the terminal to install php dependencies
+    Migrate your migrations: php artisan migrate
+    Generate application encryption key: php artisan key:generate.
+    Run npm install && npm run dev to install node.js dependencies.
+    
