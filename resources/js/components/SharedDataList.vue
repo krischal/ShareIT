@@ -24,18 +24,18 @@
                     </section>
                     <section id="add-data-form" class="my-3">
                         <form>
-                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="card shadow justify-content-between p-3">
                                 <textarea
                                     v-model="createSharedDataForm.description"
                                     v-on:keyup.enter="addSharedData"
                                     minlength="5"
                                     placeholder="Share your thoughts on anything!"
                                     type="text" class="form-control mr-3"></textarea>
-                                <button v-if="createSharedDataForm.isSubmitting" class="btn btn-primary" type="button" disabled>
+                                <button v-if="createSharedDataForm.isSubmitting" class="btn btn-primary mt-2" type="button" disabled>
                                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                                     <span class="sr-only">Sharing...</span>
                                 </button>
-                                <button v-else @click.prevent="addSharedData" class="btn btn-primary">Add</button>
+                                <button v-else @click.prevent="addSharedData" class="btn btn-primary mt-2">Share it!</button>
                             </div>
                         </form>
                     </section>
@@ -50,22 +50,20 @@
                             <li
                                 v-if="!shareddatas.isLoading && shareddatas.data.length > 0"
                                 v-for="data in shareddatas.data" :key="data.uuid"
-                                class="list-group-item">
-                                <div class="col-12 p-0">
-                                    <h5>Guest</h5>
+                                class="list-group-item my-2 rounded shadow-sm">
+                                <div class="col-12 p-0 mb-2">
+                                    <h6 class="m-0">Guest</h6>
+                                    <small class="text-muted">{{ data.created_at }}</small>
                                 </div>
                                 <div class="col-12 px-0">
                                     {{ data.description }}
                                     <br>
-                                    <button class="btn btn-sm btn-round btn-danger mt-2" href="#" @click.prevent="destroy(data)">
+                                    <button class="btn btn-sm rounded btn-danger mt-2" href="#" @click.prevent="destroy(data)">
                                             <i class="fa fa-trash-o"></i>
-                                        </button>
-                                        <br>
+                                    </button>
+                                    <br>
                                 </div>
-                                <div class="d-flex w-100 justify-content-between">
-                                    <small class="text-muted"></small>
-                                    <small class="text-muted">{{ data.created_at }}</small>
-                                </div>
+    
                             </li>
                             <li v-if="!shareddatas.isLoading && shareddatas.data.length === 0" class="list-group-item list-group-item-action list-group-item-warning">
                                 No posts found.
