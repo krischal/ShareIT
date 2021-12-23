@@ -181,7 +181,7 @@ var dataCount =0;
                 axios.get('/allData')
                 .then((response) => {
                     let data = response.data;
-                    if (data.length > dataCount){
+                    if (data.length != dataCount){
                         dataCount = data.length;
                         this.loadSharedData();
                     }
