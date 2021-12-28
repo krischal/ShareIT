@@ -41,7 +41,7 @@
                         </form>
                     </section>
                     <section id="data-actions"></section>
-                    <section id="data-list">
+                    <section id="data-list" class="pr-2"style="max-height:250px !important; overflow-y:auto;">
                         <ul class="list-group">
                             <div v-if="shareddatas.isLoading" class="text-center">
                                 <div class="spinner-border" role="status">
@@ -51,11 +51,9 @@
                             <li
                                 v-if="!shareddatas.isLoading && shareddatas.data.length > 0"
                                 v-for="data in shareddatas.data" :key="data.uuid"
-                                class="list-group-item my-2 rounded shadow-sm">
+                                class="list-group-item my-2 py-3 rounded shadow-sm">
                                 <div class="col-12 p-0 d-flex justify-content-between">
-                                    
                                     <h6 class="m-0" v-if = "data.username != null">{{ data.username }}</h6>
-
                                     <h6 class="m-0" v-else>Guest</h6>
                                     <button type="button" class="close d-flex justify-content-between" href="#" @click.prevent="destroy(data)">
                                         <span aria-hidden="true">&times;</span>
