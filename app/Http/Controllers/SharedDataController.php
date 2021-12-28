@@ -45,6 +45,7 @@ class SharedDataController extends Controller
 
         $sharedData = new SharedData();
         $sharedData->description = $request->description;
+        $sharedData->username = $request->username;
         $sharedData->save();
 
         return $sharedData;

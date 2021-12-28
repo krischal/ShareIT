@@ -25,12 +25,13 @@
                     <section id="add-data-form" class="my-3">
                         <form>
                             <div class="card shadow justify-content-between p-3">
+                                <input type ="text" class="form-control my-1" placeholder="Username" v-model="createSharedDataForm.username">
                                 <textarea
                                     v-model="createSharedDataForm.description"
                                     v-on:keyup.enter="addSharedData"
                                     minlength="5"
                                     placeholder="Share your thoughts on anything!"
-                                    type="text" class="form-control mr-3"></textarea>
+                                    type="text" class="form-control mr-3 my-1"></textarea>
                                 <button v-if="createSharedDataForm.isSubmitting" class="btn btn-primary mt-2" type="button" disabled>
                                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                                     <span class="sr-only">Sharing...</span>
@@ -51,16 +52,22 @@
                                 v-if="!shareddatas.isLoading && shareddatas.data.length > 0"
                                 v-for="data in shareddatas.data" :key="data.uuid"
                                 class="list-group-item my-2 rounded shadow-sm">
-                                <div class="col-12 p-0 mb-2">
-                                    <h6 class="m-0">Guest</h6>
+                                <div class="col-12 p-0 d-flex justify-content-between">
+                                    
+                                    <h6 class="m-0" v-if = "data.username != null">{{ data.username }}</h6>
+
+                                    <h6 class="m-0" v-else>Guest</h6>
+                                    <button type="button" class="close d-flex justify-content-between" href="#" @click.prevent="destroy(data)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                                                        
+                                </div>
+                                <div class="col-12 p-0 mb-2">                               
                                     <small class="text-muted">{{ data.created_at }}</small>
                                 </div>
                                 <div class="col-12 px-0">
                                     {{ data.description }}
-                                    <br>
-                                    <button class="btn btn-sm rounded btn-danger mt-2" href="#" @click.prevent="destroy(data)">
-                                            <i class="fa fa-trash-o"></i>
-                                    </button>
+
                                     <br>
                                 </div>
     
@@ -91,6 +98,7 @@ var dataCount =0;
                     isSubmitting: false,
                     isCreated: false,
                     description: undefined,
+                    username: undefined,
                     errors: []
                 },
                 error: undefined
@@ -133,10 +141,15 @@ var dataCount =0;
                 // update loader to loading
                 this.createSharedDataForm.isSubmitting = true;
                 // Use can use this as the payload.
+                if (this.createSharedDataForm.username == null){
+                    this.createSharedDataForm.username = 'Guest';
+                }
+                console.log(this.createSharedDataForm);
                 axios.post('/addData', this.createSharedDataForm)
                 .then((response) => {
                     this.createSharedDataForm.errors = [];
                     this.createSharedDataForm.description = undefined;
+                    this.createSharedDataForm.username = undefined;
                     this.createSharedDataForm.isCreated = true;
                     this.loadSharedData();
                 })
