@@ -1,6 +1,4 @@
 # ShareIt - Technical Assessment (Laravel & Vue Js) from DuskMobile
-![image](https://user-images.githubusercontent.com/35735992/147546123-ba5ca129-7153-46f3-a941-91acda694e3b.png)
-
 
 The activity consists in developing a simple Laravel + VueJS web app on which one can do posts like on Facebook. The requirements are: 
 
